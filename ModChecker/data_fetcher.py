@@ -1,14 +1,12 @@
 import requests
-import discord
 import asyncio
 import aiosqlite
 import html2text
+import re
 from datetime import datetime
-from statics import announce_messages
-
+from variables import ANNOUNCE_MESSAGES, version_re
 
 db_path = 'mod_data.db'
-
 
 async def create_initial_db():
     async with aiosqlite.connect(db_path) as db:
@@ -22,7 +20,6 @@ async def create_initial_db():
             )
         ''')
         await db.commit()
-
 
 async def fill_initial_data_db(mod_ids, mod_info_url, headers, debug):
     async with aiosqlite.connect(db_path) as db:
@@ -49,7 +46,6 @@ async def fill_initial_data_db(mod_ids, mod_info_url, headers, debug):
             else:
                 await debug.send(f"Mod Request failed for Mod ID {mod_id}: {response.status_code}")
 
-
 async def check_for_updates_db(channel, debug, mod_ids, mod_info_url, headers, changelog_base_url, sleeptime):
     async with aiosqlite.connect(db_path) as db:
         while True:
@@ -63,7 +59,6 @@ async def check_for_updates_db(channel, debug, mod_ids, mod_info_url, headers, c
                     mod_name = response_data['data']['name']
                     latest_files = response_data['data']['latestFiles']
                     mod_cf_url = response_data['data']['links']['websiteUrl']
-                    icon = response_data['data']['logo']['url']
                     cursor = await db.execute('SELECT * FROM mod_data WHERE mod_id = ?', (mod_id,))
                     existing_entry = await cursor.fetchone()
                     file_date_old = None
@@ -74,6 +69,9 @@ async def check_for_updates_db(channel, debug, mod_ids, mod_info_url, headers, c
                     for file_info in latest_files:
                         file_date = file_info['fileDate']
                         current_date = datetime.strptime(file_date, '%Y-%m-%dT%H:%M:%S.%fZ')
+                        update_found = True
+                        file_id = file_info['id']
+                        break
                         if file_date_old is None or current_date > file_date_old:
                             update_found = True
                             file_id = file_info['id']
@@ -92,15 +90,20 @@ async def check_for_updates_db(channel, debug, mod_ids, mod_info_url, headers, c
                             changes = changelog_data['data']
                             changes = html2text.html2text(changes, bodywidth=0)
                             changes = changes.replace('\-', '-')
-                            version, *changes_lines = changes.split('\n', 1)
-                            changes = '\n'.join(changes_lines)
-                            embed = discord.Embed(title=f"{mod_name} Update has been published!",
-                                                  color=discord.Color.green())
-                            embed.description = f"**{version}**\n{changes}"
-                            embed.set_thumbnail(url=icon)
-                            embed.add_field(name="Mod-URL", value=mod_cf_url, inline=False)
-                            message = await channel.send(embed=embed)
-                            if announce_messages:
+                            version = re.search(version_re, update_data[mod_id]['latest-file'])
+                            if version:
+                                version = version.group(1)
+                            header = f"{mod_name} version {version}" if version else f"A new version of {mod_name}"
+
+                            msg = [
+                                f'@here {header} has been released. Please update your server and clients.',
+                                f'Changes:',
+                                f'{changes}',
+                                f'\nPlease report any issues.',
+                            ]
+
+                            message = await channel.send("\n".join(msg))
+                            if ANNOUNCE_MESSAGES:
                                 if channel.is_news():
                                     await message.publish()
                         else:

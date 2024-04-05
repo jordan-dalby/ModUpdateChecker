@@ -1,0 +1,12 @@
+version: '1'
+
+services:
+  asa-mod-update-notifier:
+    build: .
+    image: zalosath/asa-mod-update-notifier
+    container_name: asa-mod-update-notifier
+    env_file:
+      - .env
+    volumes:
+      - ./ModChecker:/app
+    restart: no
