@@ -13,7 +13,6 @@ async def on_ready():
     print('------')
     channel = bot.get_channel(variables.CHANNEL_ID)
     debug = bot.get_channel(variables.DEBUG_CHANNEL_ID)
-    await debug.send(variables.headers)
     await debug.send("Bot is online.")
     await create_initial_db()
     await fill_initial_data_db(variables.MOD_IDS, variables.mod_info_url, variables.headers, debug)

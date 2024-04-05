@@ -69,7 +69,6 @@ async def check_for_updates_db(channel, debug, mod_ids, mod_info_url, headers, c
                     for file_info in latest_files:
                         file_date = file_info['fileDate']
                         current_date = datetime.strptime(file_date, '%Y-%m-%dT%H:%M:%S.%fZ')
-                        update_found = True
                         if file_date_old is None or current_date > file_date_old:
                             update_found = True
                             file_id = file_info['id']
