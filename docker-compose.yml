@@ -8,5 +8,5 @@ services:
     env_file:
       - .env
     volumes:
-      - ./ModChecker:/app
+      - ./scripts:/app
     restart: no

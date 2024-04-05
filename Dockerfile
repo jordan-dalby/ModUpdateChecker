@@ -4,7 +4,7 @@ WORKDIR /app
 
 RUN pip install discord.py aiosqlite requests html2text
 
-COPY ./ModChecker .
+COPY ./scripts .
 
 ENV API_KEY=""
 ENV BOT_TOKEN=""
