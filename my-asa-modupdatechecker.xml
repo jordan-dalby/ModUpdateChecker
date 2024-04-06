@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<Container version="1">
+  <Name>asamodupdatechecker</Name>
+  <Repository>zalosath/asa-mod-update-notifier:latest</Repository>
+  <Registry/>
+  <Network>bridge</Network>
+  <MyIP/>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support/>
+  <Project/>
+  <Overview/>
+  <Category/>
+  <WebUI/>
+  <TemplateURL/>
+  <Icon/>
+  <ExtraParams/>
+  <PostArgs/>
+  <CPUset/>
+  <DateInstalled>1712398256</DateInstalled>
+  <DonateText/>
+  <DonateLink/>
+  <Requires/>
+  <Config Name="Appdata" Target="/db" Default="/mnt/user/appdata/asamodupdatechecker" Mode="rw" Description="Persistent database files" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/asamodupdatechecker</Config>
+  <Config Name="API_KEY" Target="API_KEY" Default="" Mode="" Description="CurseForge API key" Type="Variable" Display="always" Required="true" Mask="false"/>
+  <Config Name="BOT_TOKEN" Target="BOT_TOKEN" Default="" Mode="" Description="Discord bot token" Type="Variable" Display="always" Required="true" Mask="false"/>
+  <Config Name="MOD_IDS" Target="MOD_IDS" Default="" Mode="" Description="Mod IDs to monitor, separated with a comma" Type="Variable" Display="always" Required="true" Mask="false"/>
+  <Config Name="CHANNEL_ID" Target="CHANNEL_ID" Default="" Mode="" Description="Channel ID to send announcements to" Type="Variable" Display="always" Required="true" Mask="false"/>
+  <Config Name="DEBUG_CHANNEL_ID" Target="DEBUG_CHANNEL_ID" Default="" Mode="" Description="Debug channel ID for wake and error messages" Type="Variable" Display="always" Required="true" Mask="false"/>
+  <Config Name="ANNOUNCE_MESSAGES" Target="ANNOUNCE_MESSAGES" Default="" Mode="" Description="Should announcements be published? True or False" Type="Variable" Display="always" Required="true" Mask="false">False</Config>
+  <Config Name="MESSAGE_TEMPLATE" Target="MESSAGE_TEMPLATE" Default="" Mode="" Description="Optional message template to use, more info at https://github.com/jordan-dalby/ModUpdateChecker/blob/main/README.md" Type="Variable" Display="always" Required="false" Mask="false"/>
+  <Config Name="DEBUG_MODE" Target="DEBUG_MODE" Default="False" Mode="" Description="Enabled debug mode" Type="Variable" Display="always" Required="false" Mask="false">False</Config>
+</Container>

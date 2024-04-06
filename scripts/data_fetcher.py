@@ -6,7 +6,7 @@ import re
 from datetime import datetime
 from variables import ANNOUNCE_MESSAGES, MESSAGE_TEMPLATE, DEBUG_MODE, version_re
 
-db_path = 'mod_data.db'
+db_path = '/db/mod_data.db'
 
 async def create_initial_db():
     async with aiosqlite.connect(db_path) as db:

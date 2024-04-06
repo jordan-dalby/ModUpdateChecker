@@ -1,4 +1,4 @@
-version: '1'
+version: '3'
 
 services:
   asa-mod-update-notifier:
@@ -9,4 +9,5 @@ services:
       - .env
     volumes:
       - ./scripts:/app
+      - ./db:/db
     restart: no
