@@ -4,7 +4,19 @@ Big thanks to the original author for figuring out the API calls & code for that
   
 This fork does not use embeds, instead opting for a basic message to allow for tagging with @everyone or @here  
   
-
+  
+## UNRAID installation  
+  
+To install into your UNRAID system, you can wget the template XML file into ```/boot/config/plugins/dockerMan/templates-user```  
+  
+```
+cd /boot/config/plugins/dockerMan/templates-user
+wget https://raw.githubusercontent.com/jordan-dalby/ModUpdateChecker/main/my-asamodupdatechecker.xml
+```  
+  
+Then go through the usual container creation process and fill in any required variables.  
+  
+  
 ## docker-compose  
   
 I recommend that you use docker-compose for its simplicity.  
