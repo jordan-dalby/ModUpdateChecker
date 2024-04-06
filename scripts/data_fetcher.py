@@ -4,7 +4,7 @@ import aiosqlite
 import html2text
 import re
 from datetime import datetime
-from variables import ANNOUNCE_MESSAGES, version_re
+from variables import ANNOUNCE_MESSAGES, MESSAGE_TEMPLATE, DEBUG_MODE, version_re
 
 db_path = 'mod_data.db'
 
@@ -69,7 +69,7 @@ async def check_for_updates_db(channel, debug, mod_ids, mod_info_url, headers, c
                     for file_info in latest_files:
                         file_date = file_info['fileDate']
                         current_date = datetime.strptime(file_date, '%Y-%m-%dT%H:%M:%S.%fZ')
-                        if file_date_old is None or current_date > file_date_old:
+                        if file_date_old is None or current_date > file_date_old or DEBUG_MODE:
                             update_found = True
                             file_id = file_info['id']
                             break
@@ -91,18 +91,32 @@ async def check_for_updates_db(channel, debug, mod_ids, mod_info_url, headers, c
                             if version:
                                 version = version.group(1)
                             header = f"{mod_name} version {version}" if version else f"A new version of {mod_name}"
-
                             msg = [
                                 f'@here {header} has been released. Please update your server and clients.',
                                 f'Changes:',
                                 f'{changes}',
                                 f'\nPlease report any issues.',
                             ]
+                            msg = "\n".join(msg)
 
-                            message = await channel.send("\n".join(msg))
-                            if ANNOUNCE_MESSAGES:
-                                if channel.is_news():
-                                    await message.publish()
+                            if len(MESSAGE_TEMPLATE) != 0:
+                                replacements = {
+                                    "{mod_name}": mod_name,
+                                    "{version}": version,
+                                    "{changes}": changes,
+                                    "\\n": "\n"
+                                }
+                                msg = MESSAGE_TEMPLATE
+                                for pattern, replacement in replacements.items():
+                                    msg = msg.replace(pattern, replacement)
+
+                            if DEBUG_MODE:
+                                await debug.send(msg)
+                            else:
+                                message = await channel.send(msg)
+                                if ANNOUNCE_MESSAGES:
+                                    if channel.is_news():
+                                        await message.publish()
                         else:
                             await debug.send(
                                 f"Changelog Request failed for Mod ID {mod_id}: {changelog_response.status_code}")

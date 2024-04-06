@@ -1,5 +1,6 @@
 import asyncio
 import variables
+import os
 from discord.ext import commands
 from data_fetcher import create_initial_db, fill_initial_data_db, check_for_updates_db
 
@@ -13,7 +14,7 @@ async def on_ready():
     print('------')
     channel = bot.get_channel(variables.CHANNEL_ID)
     debug = bot.get_channel(variables.DEBUG_CHANNEL_ID)
-    await debug.send("Bot is online.")
+    await debug.send(f"Bot is online.")
     await create_initial_db()
     await fill_initial_data_db(variables.MOD_IDS, variables.mod_info_url, variables.headers, debug)
     await asyncio.sleep(10)

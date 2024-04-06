@@ -21,4 +21,9 @@ MOD_IDS = mod id's to track, separated with a comma e.g. 12345678,87654321
 CHANNEL_ID = discord channel ID to send announcements to e.g. 123456789123456  
 DEBUG_CHANNEL_ID = discord channel ID to send debug to e.g. 123456789123456  
 ANNOUNCE_MESSAGES = should messages sent to the announcement channel be published? True or False  
+MESSAGE_TEMPLATE = the message, separated with line breaks \n {mod_name} {version} {changes} \n etc. Leave blank for a default message template.
 ```
+  
+You can pass the .env file into docker run by adding --env-file=.env  
+  
+![example image](https://i.imgur.com/buqdM7I.png)
