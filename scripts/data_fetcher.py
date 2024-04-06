@@ -92,7 +92,7 @@ async def check_for_updates_db(channel, debug, mod_ids, mod_info_url, headers, c
                                 version = version.group(1)
                             header = f"{mod_name} version {version}" if version else f"A new version of {mod_name}"
                             msg = [
-                                f'@here {header} has been released. Please update your server and clients.',
+                                f'@everyone {header} has been released. Please update your server and clients.',
                                 f'Changes:',
                                 f'{changes}',
                                 f'\nPlease report any issues.',
