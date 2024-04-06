@@ -16,14 +16,15 @@ wget https://raw.githubusercontent.com/jordan-dalby/ModUpdateChecker/main/my-asa
   
 Then go through the usual container creation process and fill in any required variables.  
   
-
-## docker-compose  
+## Other installation options  
+  
+### docker-compose  
   
 I recommend that you use docker-compose for its simplicity.  
 To do so, add your information into ```.env.template```, ensuring you keep the single quotations, then rename the file to ```.env``` and run ```docker-compose up``` to build, create, and start the container.  
   
 
-## Dockerfile  
+### Dockerfile  
   
 This repo was created to be run on UNRAID, however it's still possible to run this manually with docker run and the following environment variables set: 
 ``` 
