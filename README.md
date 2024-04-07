@@ -4,6 +4,8 @@ Big thanks to the original author for figuring out the API calls & code for that
   
 This fork does not use embeds, instead opting for a basic message to allow for tagging with @everyone or @here  
   
+Images of this repository are available at https://hub.docker.com/repository/docker/zalosath/asa-mod-update-notifier/general or simply use ```zalosath/asa-mod-update-notifier``` in any docker format.  
+  
   
 ## UNRAID installation  
   
