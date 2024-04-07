@@ -10,4 +10,4 @@ services:
     volumes:
       - ./scripts:/app
       - ./db:/db
-    restart: no
+    restart: always
