@@ -1,5 +1,7 @@
 # Mod Update Checker
   
+A Python app that periodically checks CurseForge for approved updates of mods, posting an announcement in a Discord server of your choosing with a fully customisable message.
+
 Big thanks to the original author for figuring out the API calls & code for that, I simply moved things around and dockerised everything.  
   
 This fork does not use embeds, instead opting for a basic message to allow for tagging with @everyone or @here  
