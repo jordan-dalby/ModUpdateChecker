@@ -14,18 +14,15 @@ jobs:
         run: |
           cp .env.template .env
 
-      - name: Set version
-        id: set_version
-        run: echo "::set-output name=version::${{ github.event.release.tag_name }}"
-
       - name: Build and push Docker images
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
           IMAGE_NAME: ${{ vars.IMAGE_NAME }}
+          VERSION: ${{ github.event.release.tag_name }}
         run: |
           echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
           docker-compose build
-          docker tag $IMAGE_NAME:latest $IMAGE_NAME:${{ steps.set_version.outputs.version }}
+          docker tag $IMAGE_NAME:latest $IMAGE_NAME:$VERSION
           docker push $IMAGE_NAME:latest
-          docker push $IMAGE_NAME:${{ steps.set_version.outputs.version }}
+          docker push $IMAGE_NAME:$VERSION
