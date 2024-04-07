@@ -1,6 +1,6 @@
 .idea
+.env
 venv
+__pycache__
 latestpublic.txt
 mod_data.db
-__pycache__
-.env
