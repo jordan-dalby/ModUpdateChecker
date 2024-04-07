@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Container version="1">
   <Name>asamodupdatechecker</Name>
-  <Repository>zalosath/asa-mod-update-notifier:latest</Repository>
+  <Repository>zalosath/asa-mod-update-notifier</Repository>
   <Registry/>
   <Network>bridge</Network>
   <MyIP/>
