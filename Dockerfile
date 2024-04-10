@@ -2,7 +2,7 @@ FROM python:3.9
 
 WORKDIR /app
 
-RUN pip install discord.py aiosqlite requests html2text
+RUN pip install discord.py aiosqlite requests beautifulsoup4
 
 COPY ./scripts .
 
